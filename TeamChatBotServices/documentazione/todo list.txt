@@ -1,4 +1,0 @@
-risolvere il problema del fetch all
-lui fa la lista del tipo indice: valore
-a noi serve nome del campo: valore
-quindi l'equivalente del fetchassoc del connettore PHP

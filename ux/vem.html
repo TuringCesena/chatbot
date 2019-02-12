@@ -6,10 +6,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ICT solutions for Data Centers, Telepresence and Security | VEM sistemi</title>
 
-<!-- CUSTOM CSS/JS START -->
+
+<!-- CUSTOM CSS START -->
 <link rel="stylesheet" href="custom/style.css">
-<script src="custom/script.js"></script>
-<!-- CUSTOM CSS/JS END -->
+<!-- CDN JQUERY -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- CUSTOM CSS END-->
 
 <link rel="shortcut icon" href="https://vem.com/wp-content/uploads/2017/07/favicon.png">
 <script>
@@ -115,7 +117,7 @@ img.emoji {
 <script type="text/javascript" src="vem_files/greensock.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
-var LS_Meta = {"v":"5.6.9"};
+var LS_Meta = {"v":"5.6.9"};ux_clean/index.html
 /* ]]> */
 </script>
 <script type="text/javascript" src="vem_files/layerslider.js"></script>
@@ -208,7 +210,22 @@ background: rgba(0, 0, 0, 0.21); color:#fff;}.sp_left:hover,.sp_right:hover{back
 <body class="home page-template-default page page-id-13537 wpb-js-composer js-comp-ver-5.6 vc_responsive" style="display: block;">
 
 <!-- CHATBOT START -->
-
+<div id="overlay">
+	<div id="avatar"><img src="gif1.gif"></div>
+	<div id="chat">
+		<div class="chat_head">
+			<div id="chat_head_message">VEM Chatbot - 1.0 JIM</div>
+			<div id="chat_head_close">&times;</div>
+		</div>
+		<div class="chat_messages">
+			<textarea name="txtArea" id="response" cols="30"></textarea>
+		</div>
+		<div class="chat_inputs">
+			<input type="text" name="" id="input">
+			<input type="button" value="Invia" id="rec">
+		</div>
+	</div>
+</div>
 <!-- CHATBOT END -->
 <div id="top_bg" class="menu_slide">
 <div id="top_bar" class="topbar_type_3">
@@ -1195,4 +1212,11 @@ var zilla_likes = {"ajaxurl":"https:\/\/vem.com\/wp-admin\/admin-ajax.php"};
 <script type="text/javascript" src="vem_files/wp-embed.js"></script>
 <script type="text/javascript" src="vem_files/js_composer_front.js"></script>
 
-<div id="wp-a11y-speak-polite" aria-live="polite" aria-relevant="additions text" aria-atomic="true" class="screen-reader-text wp-a11y-speak-region"></div><div id="wp-a11y-speak-assertive" aria-live="assertive" aria-relevant="additions text" aria-atomic="true" class="screen-reader-text wp-a11y-speak-region"></div><div id="qtip-rcontainer"></div></body></html>
+<div id="wp-a11y-speak-polite" aria-live="polite" aria-relevant="additions text" aria-atomic="true" class="screen-reader-text wp-a11y-speak-region"></div><div id="wp-a11y-speak-assertive" aria-live="assertive" aria-relevant="additions text" aria-atomic="true" class="screen-reader-text wp-a11y-speak-region"></div><div id="qtip-rcontainer"></div>
+
+<!-- CUSTOM JS START -->
+<link rel="stylesheet" href="custom/style.css">
+<script src="custom/script.js"></script>
+<!-- CUSTOM JS END -->
+
+</body></html>

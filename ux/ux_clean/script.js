@@ -7,7 +7,7 @@ $(document).ready(function(){
 
     var chat_close = document.getElementById("chat_head_close");
     chat_close.addEventListener("click", function(){
-        document.getElementById("chat").style.right = "-100%";
+        document.getElementById("chat").style.right = "-110%";
         avatar.style.right = "0";
     });
 });

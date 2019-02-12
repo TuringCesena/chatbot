@@ -1,0 +1,8 @@
+/* SLIDER MAIN SLIDE: root/vem_files/main_slide.jpg */
+.main_slide{
+    background: url("../vem_files/main_slide.jpg");
+    min-height: 700px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

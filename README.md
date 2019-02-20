@@ -6,4 +6,4 @@ Routing API:
 - servizi dell'utente - /api/servizi/user/id - restituisce i servizi dell'utente con quell'ID
 - news - /api/news - restituisce tutte le news
 - news dell'utente - /api/news/user/id - restituisce le news di quell'utente con quell'ID
-- ultimo accesso - /api/user/lastession/id - aggiorna il campo del db utenti "ultimo accesso" in base al datetime della chiamata API 
+- ultimo accesso - /api/user/set_lastession/id - aggiorna il campo del db utenti "ultimo accesso" in base al datetime della chiamata API 

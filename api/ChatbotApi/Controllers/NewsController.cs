@@ -14,9 +14,16 @@ using System.Text;
 namespace ChatbotApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/News")]
+    //[Route("api/[controller]")]
     public class NewsController : Controller
     {
+        /*
+         * Nota ROUTE
+         * il route in cima dava problemi, quindi in ogni chiamata
+         * sotto ci sarà specificato il route della chiamata
+         * senza non funziona
+         */
+
 
         class News
         {
@@ -34,20 +41,19 @@ namespace ChatbotApi.Controllers
                 this.news = n;
                 this.testo = t;
             }
+
             public News() { }
 
-            public News single(int id)
-            {
-                //TODO
-                return new News();
-            }
+           
 
-            public List<News> select()
+            public List<News> select(int id=0)
             {
                 List<News> news = new List<News>();
                 DBConn d = new DBConn();
+                string q = (id > 0)
+                    ? "select * from news order where id_news = " + id + " by data_pubblicazione"
+                    : "select * from news order by data_pubblicazione";
 
-                string q = "select * from news order by data_pubblicazione";
                 DataTable dt = d.Select(q);
 
                 foreach (DataRow dr in dt.Rows)
@@ -104,6 +110,7 @@ namespace ChatbotApi.Controllers
         /// visualizza tutte le news
         /// </summary>
         [HttpGet]
+        [Route("api/news")]
         public JsonResult Get()
         {
             News n = new News();
@@ -111,7 +118,13 @@ namespace ChatbotApi.Controllers
         }
 
 
-        [HttpGet("/user/{id}")]
+        /// <summary>
+        /// visualizza le news dell'utente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/news/user/{id}")]
         public JsonResult Get(int id)
         {
             News n = new News();

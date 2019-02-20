@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ChatbotApi.Database;
 using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace ChatbotApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Servizi")]
     public class ServiziController : Controller
     {
 
@@ -26,20 +26,50 @@ namespace ChatbotApi.Controllers
                 this.sigla = s;
                 this.descrizione = d;
             }
+
             public Servizio() { }
 
-            public Servizio single(int id)
-            {
-                //TODO
-                return new Servizio();
-            }
 
-            public List<Servizio> select()
+            /// <summary>
+            /// restituisce la lista di oggetti
+            /// </summary>
+            /// <param name="id">di deafualt a zero (prende tutti e record), altrimenti recupera l'id indicato</param>
+            /// <returns></returns>
+            public List<Servizio> select(int id=0)
             {
                 List<Servizio> servizi = new List<Servizio>();
                 DBConn d = new DBConn();
 
-                string q = "select * from servizi order by sigla_servizio";
+                string q = (id > 0)
+                    ? "select * from servizi where id_servizio = " + id + " order by sigla_servizio"
+                    : "select * from servizi order by sigla_servizio";
+
+                DataTable dt = d.Select(q);
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    servizi.Add(new Servizio(
+                            Convert.ToInt16(dr[0]),
+                            Convert.ToString(dr[1]),
+                            Convert.ToString(dr[2])
+                        ));
+                }
+                d.Close();
+                return servizi;
+            }
+
+
+
+            public List<Servizio> selectServiziUtente(int id)
+            {
+                List<Servizio> servizi = new List<Servizio>();
+                DBConn d = new DBConn();
+
+                string q = "select servizi.* " +
+                            "from servizi " +
+                            "inner join servizi_utenti on servizi.id_servizio = servizi_utenti.id_servizio " +
+                            "where servizi_utenti.id_utente = " + id;
+
                 DataTable dt = d.Select(q);
 
                 foreach (DataRow dr in dt.Rows)
@@ -58,20 +88,44 @@ namespace ChatbotApi.Controllers
         }
 
 
+
+        /// <summary>
+        /// restituisce tutti i servizi
+        /// </summary>
         [HttpGet]
+        [Route("api/servizi")]
         public JsonResult Get()
         {
-
             Servizio s = new Servizio();
             return Json(s.select());
+        }
 
-            //return Json(dt);
-            //string JSONresult;
-            //JSONresult = JsonConvert.SerializeObject(dt);
 
-            //var response = this.Request.CreateResponse(HttpStatusCode.OK);
-            //response.Content = new StringContent(JSONresult, Encoding.UTF8, "application/json");
-            //return response;
+        /// <summary>
+        /// restituisce il servizio specificato
+        /// </summary>
+        /// <param name="id">id servizio</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/servizi/{id}")]
+        public JsonResult Get(int id)
+        {
+            Servizio s = new Servizio();
+            return Json(s.select(id));
+        }
+
+
+        /// <summary>
+        /// restituisce il servizio specificato
+        /// </summary>
+        /// <param name="id">id servizio</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/servizi/user/{id}")]
+        public JsonResult GetServiziUser(int id)
+        {
+            Servizio s = new Servizio();
+            return Json(s.selectServiziUtente(id));
         }
 
 

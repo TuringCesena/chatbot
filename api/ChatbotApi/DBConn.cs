@@ -77,5 +77,12 @@ namespace ChatbotApi.Database
                 return new DataTable();
             }
         }
+
+        public int Execute(string query)
+        {
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            int res = cmd.ExecuteNonQuery();
+            return res;
+        }
     }
 }

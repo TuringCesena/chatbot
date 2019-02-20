@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ChatbotApi</name>
+    </assembly>
+    <members>
+        <member name="M:ChatbotApi.Controllers.NewsController.Get">
+            <summary>
+            visualizza tutte le news
+            </summary>
+        </member>
+        <member name="M:ChatbotApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Configure base services we are going to use (MVC and Swagger)
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

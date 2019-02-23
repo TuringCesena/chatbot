@@ -14,6 +14,7 @@ namespace ChatbotApi.Controllers
     [Route("api/Chat")]
     public class ChatController : Controller
     {
+        [HttpPost]
         public async Task<string> Post([FromBody]string text)
         {
             /*

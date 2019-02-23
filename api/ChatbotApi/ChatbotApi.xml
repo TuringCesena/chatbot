@@ -9,12 +9,52 @@
             visualizza tutte le news
             </summary>
         </member>
+        <member name="M:ChatbotApi.Controllers.NewsController.Get(System.Int32)">
+            <summary>
+            visualizza le news dell'utente
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ChatbotApi.Controllers.ServiziController.Servizio.select(System.Int32)">
+            <summary>
+            restituisce la lista di oggetti
+            </summary>
+            <param name="id">di deafualt a zero (prende tutti e record), altrimenti recupera l'id indicato</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChatbotApi.Controllers.ServiziController.Get">
+            <summary>
+            restituisce tutti i servizi
+            </summary>
+        </member>
+        <member name="M:ChatbotApi.Controllers.ServiziController.Get(System.Int32)">
+            <summary>
+            restituisce il servizio specificato
+            </summary>
+            <param name="id">id servizio</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChatbotApi.Controllers.ServiziController.GetServiziUser(System.Int32)">
+            <summary>
+            restituisce il servizio specificato
+            </summary>
+            <param name="id">id servizio</param>
+            <returns></returns>
+        </member>
         <member name="M:ChatbotApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
             Configure base services we are going to use (MVC and Swagger)
             </summary>
             <param name="app"></param>
             <param name="env"></param>
+        </member>
+        <member name="M:api_chatbot_services.Controllers.LearnController.Learn(System.String,System.String,System.String)">
+            <summary>
+            entry point richieste chat
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

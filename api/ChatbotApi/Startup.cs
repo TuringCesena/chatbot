@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -40,7 +41,8 @@ namespace ChatbotApi
             
             services.AddSwaggerGen(c =>
             {
-                    c.IncludeXmlComments(GetXmlCommentsPath());
+                c.SwaggerDoc("v1", new Info { Title = "Chatbot API", Version = "v1" });
+                c.IncludeXmlComments(GetXmlCommentsPath());
             });
             
         }
@@ -64,7 +66,9 @@ namespace ChatbotApi
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
             });
+
             app.UseMvc();
             
         }

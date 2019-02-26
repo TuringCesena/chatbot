@@ -9,11 +9,10 @@
             visualizza tutte le news
             </summary>
         </member>
-        <member name="M:ChatbotApi.Controllers.NewsController.Get(System.Int32)">
+        <member name="M:ChatbotApi.Controllers.NewsController.Get(System.String)">
             <summary>
             visualizza le news dell'utente
             </summary>
-            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:ChatbotApi.Controllers.ServiziController.Servizio.select(System.Int32)">
@@ -35,12 +34,10 @@
             <param name="id">id servizio</param>
             <returns></returns>
         </member>
-        <member name="M:ChatbotApi.Controllers.ServiziController.GetServiziUser(System.Int32)">
+        <member name="M:ChatbotApi.Controllers.ServiziController.GetServiziUser(System.String)">
             <summary>
-            restituisce il servizio specificato
+            restituisce i servizi dell'utente specificato
             </summary>
-            <param name="id">id servizio</param>
-            <returns></returns>
         </member>
         <member name="M:ChatbotApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>

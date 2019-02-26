@@ -71,7 +71,7 @@ namespace ChatbotApi.Controllers
             }
 
 
-            public List<News> selectusernews(int userid)
+            public List<News> selectusernews(string username)
             {
                 List<News> news = new List<News>();
                 DBConn d = new DBConn();
@@ -83,9 +83,9 @@ namespace ChatbotApi.Controllers
                         "where n.id_news = ns.id_news " +
                         "and ns.id_servizio = s.id_servizio and s.id_servizio = su.id_servizio " +
                         "and su.id_utente = u.id_utente " +
-                        "and u.id_utente = {0} and n.data_pubblicazione BETWEEN u.ultimo_accesso and now() " +
+                        "and u.utente = '{0}' and n.data_pubblicazione BETWEEN u.ultimo_accesso and now() " +
                         "GROUP BY n.data_pubblicazione " +
-                        "ORDER BY n.data_pubblicazione DESC ", userid);
+                        "ORDER BY n.data_pubblicazione DESC ", username);
 
                 DataTable dt = d.Select(q);
 
@@ -121,14 +121,13 @@ namespace ChatbotApi.Controllers
         /// <summary>
         /// visualizza le news dell'utente
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("api/news/user/{id}")]
-        public JsonResult Get(int id)
+        [Route("api/news/user/{username}")]
+        public JsonResult Get(string username)
         {
             News n = new News();
-            return Json(n.selectusernews(id));
+            return Json(n.selectusernews(username));
         }
     }
 }

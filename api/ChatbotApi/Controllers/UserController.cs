@@ -35,11 +35,11 @@ namespace ChatbotApi.Controllers
             public Utente() { }
 
 
-            public int UpdateLastAccess(int user_id)
+            public int UpdateLastAccess(string user)
             {
                 
                 DBConn d = new DBConn();
-                string q = "update utenti set ultimo_accesso = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "' where id_utente = " + user_id;
+                string q = "update utenti set ultimo_accesso = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "' where utente = '" + user + "';";
                 int res = d.Execute(q);
                 //DataTable dt = d.Select(q);
 
@@ -60,12 +60,12 @@ namespace ChatbotApi.Controllers
 
         }
 
-        [HttpGet]
-        [Route("api/user/set_last_session/{id}")]
-        public string Get(int id)
+        [HttpPost]
+        [Route("api/user/set_last_session")]
+        public string Post([FromBody]string username)
         {
             Utente u = new Utente();
-            u.UpdateLastAccess(id);
+            u.UpdateLastAccess(username);
             return "ok";
         }
         

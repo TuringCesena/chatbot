@@ -60,15 +60,16 @@ namespace ChatbotApi.Controllers
 
 
 
-            public List<Servizio> selectServiziUtente(int id)
+            public List<Servizio> selectServiziUtente(string utente)
             {
                 List<Servizio> servizi = new List<Servizio>();
                 DBConn d = new DBConn();
 
-                string q = "select servizi.* " +
-                            "from servizi " +
-                            "inner join servizi_utenti on servizi.id_servizio = servizi_utenti.id_servizio " +
-                            "where servizi_utenti.id_utente = " + id;
+                string q = string.Format("select servizi.* " +
+                                         "from servizi " +
+                                         "inner join servizi_utenti on servizi.id_servizio = servizi_utenti.id_servizio " +
+                                         "inner join utenti on servizi_utenti.id_utente = utenti.id_utente " +
+                                         "where utenti.utente = '{0}'; ", utente);
 
                 DataTable dt = d.Select(q);
 
@@ -116,16 +117,14 @@ namespace ChatbotApi.Controllers
 
 
         /// <summary>
-        /// restituisce il servizio specificato
+        /// restituisce i servizi dell'utente specificato
         /// </summary>
-        /// <param name="id">id servizio</param>
-        /// <returns></returns>
         [HttpGet]
-        [Route("api/servizi/user/{id}")]
-        public JsonResult GetServiziUser(int id)
+        [Route("api/servizi/user/{username}")]
+        public JsonResult GetServiziUser(string username)
         {
             Servizio s = new Servizio();
-            return Json(s.selectServiziUtente(id));
+            return Json(s.selectServiziUtente(username));
         }
 
 

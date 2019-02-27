@@ -1,0 +1,219 @@
+html, body, *{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+#overlay{
+    margin:0;
+    padding:0;
+    font-family: Arial, Helvetica, sans-serif;
+    color:#222;
+    background: #fff;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index: 1000;
+}
+
+#avatar{
+    position:fixed;
+    right:0;
+    bottom:0;
+    background: transparent;
+    height:15%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+#avatar > img{
+    height:100%;
+}
+
+#chat{
+    font-family: sans-serif;
+    z-index: 1001;
+    height: 100%;
+    width:100%;
+    position: fixed;
+    bottom:0;
+    right:-110%;
+    background: #fff;
+    border:1px solid #ccc;
+    transition: 0.6s ease-in-out;
+}
+
+#chat_top{
+    display:grid;
+    height:11%;
+    width:100%;
+    grid-template-columns: 80px 1fr 100px 40px;
+    grid-template-rows: 80px;
+    padding:10px 0 10px 10px;
+    font-size: 1.2em;
+    background: #333;
+    color:#fff;
+}
+
+#chat_top_face{
+    height: 100%;
+    width: 100%;
+    background: rgb(0, 132, 255);
+    border-radius: 50%;
+    border:1px solid #333;
+}
+#chat_top_face > img{
+    height:90%;
+    width:90%;
+    margin:5%;
+    border-radius: 50%;
+}
+
+#chat_top_name{
+    line-height: 2.5;
+    padding:10px;
+}
+
+#chat_top_login{
+    padding:10px;
+}
+#btnLogin, .loginbtn{
+    border: 1px solid #ccc;
+    background: rgb(0, 132, 255);
+    color:#fff;
+    padding:5px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+#btnLogin{ width:100%;}
+
+#chat_top_close{
+    font-size: 1.5em;
+    line-height: 0.8;
+    cursor: pointer;
+    text-align: right;
+    padding:10px 10px 0 0;
+}
+
+#chat_login_form{
+    display: none;
+    background: #333;
+    grid-column: 1 / 5;
+    border-top: 1px solid #ccc;
+    margin: 0 auto;
+    max-width: 60%;
+    border-radius: 5px;
+    z-index: 1010;
+}
+#chat_login_form > form > label{
+    margin:5px;
+}
+#chat_login_form > form > input{
+    margin:5px;
+    border: 1px solid #ccc;
+    min-height:20px;
+}
+#chat_login_form > form > input[type="submit"]{
+    float:right;
+}
+
+#chat_messages{
+    width:100%;
+    height:80%;
+    overflow-x: none;
+    overflow-y: scroll;
+}
+
+#chat_inputs{
+    border-top: 1px solid #ccc;
+    width:100%;
+    height:9%;
+}
+#chat_inputs_message{
+    height:100%;
+    width:75%;
+    font-size: 1.2em;
+    border: none;
+    padding:10px;
+    float:left;
+}
+#chat_inputs_submit{
+    width:25%;
+    height:100%;
+    background: rgb(0, 132, 255);
+    border: none;
+    color:#fff;
+    float:left;
+    font-size: 1.2em;
+    padding:10px;
+}
+
+@media only screen and (min-width:768px){
+    #chat{
+        height:50%;
+        width:50%;
+    }
+    #chat_top{
+        height:20%;
+        grid-template-columns: 1fr 150px 1fr 50px;
+    }
+    #chat_messages{
+        height:70%;
+    }
+    #chat_inputs{
+        height:10%;
+    }
+}
+@media only screen and (min-width:1024px){
+    #chat{
+        height:40%;
+        width:25%;
+        box-shadow: 0 0 5px #ccc;
+        border-radius: 5px 5px 0 0;
+    }
+    #chat_top{
+        height:30%;
+        font-size: 1em;
+        grid-template-columns: 80px 120px 1fr 1fr;
+        border-radius: 5px 5px 0 0;
+    }
+    #chat_top_login{
+        padding:10px 0;
+    }
+    #chat_messages{
+        height:55%;
+    }
+    #chat_inputs{
+        height:15%;
+    }
+    #chat-inputs > input{
+        height:100%;
+    }
+}
+
+.chatbot_answer{
+    max-width: 70%;
+    float:left;
+    clear:both;
+    background: #ddd;
+    color: #222;
+    border:1px solid #ccc;
+    padding:10px;
+    border-radius: 5px;
+    margin: 10px;
+}
+.user_msg{
+    max-width: 70%;
+    float:right;
+    clear:both;
+    background: rgb(0, 132, 255);
+    color: #fff;
+    padding:10px;
+    border-radius: 5px;
+    margin: 10px;
+}

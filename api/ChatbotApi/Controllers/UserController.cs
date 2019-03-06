@@ -39,7 +39,7 @@ namespace ChatbotApi.Controllers
             {
                 
                 DBConn d = new DBConn();
-                string q = "update utenti set ultimo_accesso = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "' where utente = '" + user + "';";
+                string q = "update utenti set ultimo_accesso = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "' where utente = '" + user + "';    ";
                 int res = d.Execute(q);
                 //DataTable dt = d.Select(q);
 

@@ -9,6 +9,9 @@ namespace ChatbotApi.Database
 {
     public class DBConn
     {
+        private string myaspnet_cs = "Server=MYSQL6002.site4now.net;Database=db_a45428_serv;Uid=a45428_serv;Pwd=services2019";
+        private string local_cs = "server=127.0.0.1; port=3306; database=chatbot_services; uid=root; password=; Convert Zero Datetime=True; Allow Zero Datetime=True";
+
         private MySqlConnection conn;
 
         public DBConn()
@@ -20,8 +23,7 @@ namespace ChatbotApi.Database
         {
             try
             {
-                string ConnectionString = "server=127.0.0.1; port=3306; database=chatbot_services; uid=root; password=; Convert Zero Datetime=True; Allow Zero Datetime=True";
-                conn = new MySqlConnection(ConnectionString);
+                conn = new MySqlConnection(myaspnet_cs);
                 conn.Open();
                 return true;
             }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- CHATBOT FILES START -->
+    <link rel="stylesheet" href="chatbot.css">
+    <script src="jquery.js"></script>
+    <script src="chatbot.js"></script>
+    <!-- CHATBOT FILES END-->
+    <title>VEM Chatbot - JIM</title>
+</head>
+<body>
+    <!-- CHATBOT START-->
+    <div class="overlay">
+        
+        <div id="avatar"><img src="jim_hello.gif" alt="jim hello"></div>
+
+        <div id="chat">
+        
+            <div id="chat_top">
+        
+                <div id="chat_top_face"><img id="chat_top_face_img" src="jim_happy.png" alt="" srcset=""></div>
+        
+                <div id="chat_top_name">JIM chatbot</div>
+        
+                <div id="chat_top_login"> <button id="btnLogin"> Login </button> </div>
+        
+                <div id="chat_top_close">&times;</div>
+
+                <div id="chat_login_form">
+
+                    <form method="post">
+    
+                        <label for="txtUser">username: </label>
+                        <input type="text" name="" id="txtUser">
+    
+                        <label for="txtPswd">password: </label>
+                        <input type="password" name="" id="txtPswd">
+    
+                        <input id="login_btn" class="loginbtn" type="submit" value="Accedi">
+                    </form>
+        
+                </div>
+        
+            </div>
+
+        
+            <div id="chat_messages"></div>
+        
+            <div id="chat_inputs">
+                
+                <form method="post">
+                    
+                    <input type="text" placeholder="Scrivi a JIM ..." name="txtMessage" id="chat_inputs_message">
+
+                    <input type="submit" id="chat_inputs_submit" value="Invia">
+                    
+                </form>
+            </div>
+        
+        </div>
+    
+    </div>
+    <!-- CHATBOT END-->
+</body>
+</html>

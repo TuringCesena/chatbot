@@ -9,6 +9,9 @@ namespace ChatbotApi.Database
 {
     public class DBConn
     {
+        private string myaspnet_cs = "Server=MYSQL6002.site4now.net;Database=db_a45428_serv;Uid=a45428_serv;Pwd=services2019";
+        private string local_cs = "server=127.0.0.1; port=3306; database=chatbot_services; uid=root; password=; Convert Zero Datetime=True; Allow Zero Datetime=True";
+
         private MySqlConnection conn;
 
         public DBConn()
@@ -16,20 +19,29 @@ namespace ChatbotApi.Database
             Open();
         }
 
-        public bool Open()
+        public void Open()
         {
-            try
-            {
-                string ConnectionString = "server=127.0.0.1; port=3306; database=chatbot_services; uid=root; password=; Convert Zero Datetime=True; Allow Zero Datetime=True";
-                conn = new MySqlConnection(ConnectionString);
-                conn.Open();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return false;
-            }
+            string env_conn = "database=localdb;data source=127.0.0.1;user id=azure;password=6#vWHD_$;"; //Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
+            //if (!string.IsNullOrEmpty(env_conn))
+            //{
+                
+            //}
+            //else
+            //{
+            //    conn = new MySqlConnection(local_cs);
+            //}
+            conn = new MySqlConnection(env_conn);
+            conn.Open();
+            //try
+            //{
+
+            //    return true;
+            //}
+            //catch (MySqlException ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    return false;
+            //}
         }
 
         public bool Close()

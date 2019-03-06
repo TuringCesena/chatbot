@@ -19,19 +19,29 @@ namespace ChatbotApi.Database
             Open();
         }
 
-        public bool Open()
+        public void Open()
         {
-            try
-            {
-                conn = new MySqlConnection(myaspnet_cs);
-                conn.Open();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return false;
-            }
+            string env_conn = "database=localdb;data source=127.0.0.1;user id=azure;password=6#vWHD_$;"; //Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
+            //if (!string.IsNullOrEmpty(env_conn))
+            //{
+                
+            //}
+            //else
+            //{
+            //    conn = new MySqlConnection(local_cs);
+            //}
+            conn = new MySqlConnection(env_conn);
+            conn.Open();
+            //try
+            //{
+
+            //    return true;
+            //}
+            //catch (MySqlException ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    return false;
+            //}
         }
 
         public bool Close()

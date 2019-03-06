@@ -60,6 +60,17 @@ namespace ChatbotApi.Controllers
 
         }
 
+        class resp
+        {
+            public bool status;
+        }
+
+        public class username
+        {
+            public string user;
+            public string pswd;
+        }
+
         [HttpPost]
         [Route("api/user/set_last_session")]
         public string Post([FromBody]string username)
@@ -68,6 +79,22 @@ namespace ChatbotApi.Controllers
             u.UpdateLastAccess(username);
             return "ok";
         }
-        
+
+
+        [HttpPost]
+        [Route("api/user/login")]
+        public JsonResult Post([FromBody]username usr)
+        {
+            // hardcoded login per il test
+            if (usr.user == "test" && usr.pswd == "password") {
+                return Json(new resp { status = true});
+            } else {
+                return Json(new resp { status = false });
+            }
+            
+        }
+
+
+
     }
 }

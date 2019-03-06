@@ -9,20 +9,40 @@ $(document).ready( function(){
         $("#avatar").css("right", "0");
     });
 
+    //FUNZIONI CAMBIO FACCIA / COLORE
+    function jim_happy(){
+        $("#chat_top_face").css("background", "#06f");
+        var img = $("#chat_top_face_img");
+        img.prop("src", "./jim_happy.png");
+        $("#chat_top_face").innerHTML = img;
+    }
+    function jim_sad(){
+        $("#chat_top_face").css("background", "#888");
+        var img = $("#chat_top_face_img");
+        img.prop("src", "./jim_sad.png");
+        $("#chat_top_face").innerHTML = img;
+    }
+    function jim_angry(){
+        $("#chat_top_face").css("background", "#f00");
+        var img = $("#chat_top_face_img");
+        img.prop("src", "./jim_angry.png");
+        $("#chat_top_face").innerHTML = img;
+    }
+
     $("#btnLogin").on("click", function(){
-        var display = $("#chat_login_form").css("display");
-        if(display == "none"){
-            $("#chat_login_form").css("display", "block");
-            $("#btnLogin").html("&times;");
-        }else{
-            $("#chat_login_form").css("display", "none");
-            $("#btnLogin").html("Login");
-        }
+        // var display = $("#chat_login_form").css("display");
+        // if(display == "none"){
+        //     $("#chat_login_form").css("display", "block");
+        //     $("#btnLogin").html("&times;");
+        // }else{
+        //     $("#chat_login_form").css("display", "none");
+        //     $("#btnLogin").html("Login");
+        // }
+        jim_sad();
     });
 
     //  CHANGE IMAGE AND BG COLOR
     // var face = document.createElement("img");
-
 
     
     /*
@@ -57,7 +77,7 @@ $(document).ready( function(){
     }
     */
 
-    var USER = "GUEST";
+    var USER = "";
     //FUNZIONE DI CREAZIONE CARD DI RISPOSTA
     function chat_card(title, subtitle, img){
         var card = document.createElement("div");
@@ -80,20 +100,7 @@ $(document).ready( function(){
         
     }
 
-    //FUNZIONI CAMBIO FACCIA / COLORE
-    function jim_happy(){
-        $("chat_top_face").css("background", "#06f");
-        $("chat_top_face_img").src = "jim_happy.png";
-    }
-    function jim_sad(){
-        $("chat_top_face").css("background", "#666");
-        $("chat_top_face_img").src = "jim_sad.png";
-    }
-    function jim_angry(){
-        $("chat_top_face").css("background", "#f00");
-        $("chat_top_face_img").src = "jim_angry.png";
-    }
-
+   
     //AJAX alla chatbot API e inclusione messaggi api/chat
     $("#chat_inputs_submit").on("click", function(event){
         event.preventDefault();
@@ -104,16 +111,14 @@ $(document).ready( function(){
         $("#chat_messages").append(user_msg);
         fetch('http://turing2019.azurewebsites.net/api/chat', {
             method: "POST",
-            // body: { "content": "\"" + user_msg.innerHTML + "\"", "user": "\"" + USER + "\""},
-            body: "\"" + user_msg.innerHTML + "\"",
+            body: { "content": "\"" + user_msg.innerHTML + "\"", "user": "\"" + USER + "\""},
+            //body: "\"" + user_msg.innerHTML + "\"",
             headers:{ 'Content-Type': 'application/json' }
         }).then(function(response){
             return response.json();
         }).then(function(data){
             console.log(data);
             var answer = document.createElement("div");
-            // foreach JSON.parse(data).content:
-            // answer = chat_card(content.title, content.subtitle, content.img)
             answer.innerHTML = JSON.parse(data).result.fulfillment.speech;
             answer.className += "chatbot_answer";
             $("#chat_messages").append(answer);
@@ -125,19 +130,32 @@ $(document).ready( function(){
     //LOGIN FORM AJAX
     $("#login_btn").on("click",function(event){
         event.preventDefault();
+        //RISPONDE A:
+        //user : test
+        //pswd : password
+        var login_user = $("txtUser").val();
+        var login_pswd = $("txtPswd").val();
         $("#btnLogin").click();
         fetch("http://turing2019.azurewebsites.net/api/login", {
             method: "POST",
             body: {
-                "user": "\"" + $("txtUser").val() + "\"",
-                "pswd": "\"" + $("txtPswd").val() + "\""
+                "user": "\"" + login_user + "\"",
+                "pswd": "\"" + login_pswd + "\""
             },
             headers:{ 'Content-Type': 'application/json' }
         }).then(function(response){
-            if(/*JSON.parse(response).status ==*/ true){
-                USER = $("txtUser").val();
-                $("txtUser").val("");
+            return response.json();
+        }).then(function(data){
+            if(JSON.parse(data).status == true){
+                console.log("login riuscito");
+                USER = $("#txtUser").val();
+                $("#txtUser").val("");
+                $("#txtPswd").val("");
                 $("#btnLogin").click();
+            }
+            else{
+                console.log("login fallito");
+                $("#chat_top_face_img").attr("src", "jim_angry.png");
             }
         });
     });

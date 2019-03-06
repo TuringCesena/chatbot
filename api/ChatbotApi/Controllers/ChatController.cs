@@ -124,13 +124,17 @@ namespace ChatbotApi.Controllers
                 {
                     case "news":
                         NewsController news = new NewsController();
-                        if (request.user == "test") ret = new Response(news.Get(279), "novità");
-                        else ret = new Response(news.Get(), "novità");
+                        if (request.user == "")
+                            ret = new Response(news.Get(), "novità");
+                        else
+                            ret = new Response(news.Get(request.user), "novità");
                         break;
                     case "services":
                         ServiziController serv = new ServiziController();
-                        if (request.user == "test") ret = new Response(serv.GetServiziUser(279), "novità");
-                        else ret = new Response(serv.Get(), "servizi");
+                        if(request.user == "")
+                            ret = new Response(serv.Get(), "novità");
+                        else
+                            ret = new Response(serv.GetServiziUser(request.user), "novità");
                         break;
                     default:
                         resp = new Risposta(dialog_res, status);

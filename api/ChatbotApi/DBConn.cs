@@ -21,7 +21,7 @@ namespace ChatbotApi.Database
 
         public void Open()
         {
-            string env_conn = "database=localdb;data source=127.0.0.1;user id=azure;password=6#vWHD_$;"; //Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
+            string env_conn = "Server=turingdb.mysql.database.azure.com; Port=3306; Database=services; Uid=turing@turingdb; Pwd=Services2019; SslMode=Preferred"; //Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
             //if (!string.IsNullOrEmpty(env_conn))
             //{
                 

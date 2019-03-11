@@ -10,13 +10,13 @@ using Newtonsoft.Json.Linq;
 namespace ChatbotApi.Controllers
 {
     //Set a request for 
+    /*
     public class Response
     {
         public string type;
         public string content;
         public JsonResult json;
         public string request;
-
 
         public Response(string content)
         {
@@ -30,7 +30,7 @@ namespace ChatbotApi.Controllers
             this.json = json;
             this.request = request;
         }
-    }
+    }*/
 
     public class Richiesta
     {
@@ -61,7 +61,7 @@ namespace ChatbotApi.Controllers
     public class Risposta
     {
         public bool status;
-        public List<content> content;
+        public List<content> content= new List<content>();
 
         public Risposta(List<content> content, bool status=true)
         {
@@ -77,25 +77,26 @@ namespace ChatbotApi.Controllers
         }
     }
 
+
+
     public class ChatController : Controller
     {
         [Produces("application/json")]
         [Route("api/chat")]
         [EnableCors("AllowAll")]
         [HttpPost]
-        public async Task<string> Dialogflow([FromBody]string text)
+        public async Task<string> Dialogflow([FromBody]Richiesta request)
         {
             // url dialogflow
             string url = "https://api.api.ai/v1/query?v=20150910";
             string apikey = "776c7c6814ee4d5da82a213e673f46a4";
-
-            Richiesta request = (Richiesta)JsonConvert.DeserializeObject(text);
+            //Richiesta request;
 
             bool status = false;
             string dialog_res="";
             var response= new HttpResponseMessage();
             Risposta resp;
-
+            string res_string;
             // creazione request
             HttpClient req = new HttpClient();
             var values = new Dictionary<string, string>
@@ -110,7 +111,7 @@ namespace ChatbotApi.Controllers
                 "application/json"
                 );
             req.DefaultRequestHeaders.Add("Authorization", "Bearer " + apikey);
-            Response ret= new Response("");
+            //Response ret= new Response("");
             //req.DefaultRequestHeaders.Add("Content-Type", "application/json");
             try
             {
@@ -119,36 +120,54 @@ namespace ChatbotApi.Controllers
                 JObject obj = JObject.Parse(responseString);
                 dialog_res = obj["result"]["fulfillment"]["speech"].ToString();
 
-                ret = new Response(dialog_res);
+                //ret = new Response(dialog_res);
+                status = true;
+                resp = new Risposta(dialog_res, status);
+                res_string = JsonConvert.SerializeObject(resp);
+                return res_string;
+
+                /*
                 switch (dialog_res)
                 {
                     case "news":
                         NewsController news = new NewsController();
                         if (request.user == "")
-                            ret = new Response(news.Get(), "novità");
+                        {
+                            JsonResult novita = news.Get();
+                            List<NewsController.News> var    =  novita.Data();
+                            foreach (object  nov in novita)
+                            {
+
+                            }
+                        }
                         else
-                            ret = new Response(news.Get(request.user), "novità");
+                        {
+                            JsonResult novita = news.Get(request.user);
+                        }
                         break;
                     case "services":
                         ServiziController serv = new ServiziController();
-                        if(request.user == "")
+                        if (request.user == "")
                             ret = new Response(serv.Get(), "novità");
                         else
                             ret = new Response(serv.GetServiziUser(request.user), "novità");
                         break;
                     default:
                         resp = new Risposta(dialog_res, status);
+                        string res_string = JsonConvert.SerializeObject(resp);
+                        return res_string;
                         break;
-                }
-                status = true;
+                }*/
+                
             }
             catch
             {
                 status = false;
-            } 
+            }
 
-            string res = JsonConvert.SerializeObject(ret);
-            return res;
+            resp = new Risposta("", status);
+            res_string = JsonConvert.SerializeObject(resp);
+            return res_string;
         }
 
     }

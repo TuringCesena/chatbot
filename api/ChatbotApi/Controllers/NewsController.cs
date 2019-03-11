@@ -10,6 +10,7 @@ using System.Data;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
+using MySql.Data.MySqlClient;
 
 namespace ChatbotApi.Controllers
 {
@@ -28,18 +29,24 @@ namespace ChatbotApi.Controllers
         class News
         {
             public int ID { get; set; }
-            public DateTime data_pubblicazione { get; set; }
-            public DateTime data_fine_pubblicazione { get; set; }
+            public List<string> servizi { get; set; }
             public string news { get; set; }
             public string testo { get; set; }
+            public string allegato { get; set; }
+            public DateTime data_pubblicazione { get; set; }
+            public DateTime data_fine_pubblicazione { get; set; }
 
-            public News( int id, DateTime dp, DateTime fp, string n, string t)
+            public News(int id, string news, string testo, string allegato, DateTime data_pubblicazione, DateTime data_fine_pubblicazione)
             {
-                this.ID = id;
-                this.data_pubblicazione = dp;
-                this.data_fine_pubblicazione= fp;
-                this.news = n;
-                this.testo = t;
+                ID = id;
+                this.servizi = new List<string>();
+                this.news = news;
+                this.testo = testo;
+                this.allegato = allegato;
+                this.data_pubblicazione = data_pubblicazione;
+                this.data_fine_pubblicazione = data_fine_pubblicazione;
+
+                this.servizi = _getLettereServizi(ID);
             }
 
             public News() { }
@@ -59,11 +66,12 @@ namespace ChatbotApi.Controllers
                 foreach (DataRow dr in dt.Rows)
                 {
                     news.Add(new News(
-                            Convert.ToInt16(dr[0]),
-                            Convert.ToDateTime(dr[1]),
-                            Convert.ToDateTime(dr[2]),
-                            dr[3].ToString(),
-                            dr[4].ToString()
+                            Convert.ToInt16(dr[0]),         //id
+                            dr[2].ToString(),               //news
+                            dr[3].ToString(),               //testo
+                            "",                             //allegato
+                            Convert.ToDateTime(dr[5]),      //data pubblicazione
+                            Convert.ToDateTime(dr[6])      // data fine pubblicazione     
                         ));
                 }
                 d.Close();
@@ -92,15 +100,38 @@ namespace ChatbotApi.Controllers
                 foreach (DataRow dr in dt.Rows)
                 {
                     news.Add(new News(
-                            Convert.ToInt16(dr[0]),
-                            Convert.ToDateTime(dr[1]),
-                            Convert.ToDateTime(dr[2]),
-                            dr[3].ToString(),
-                            dr[4].ToString()
+                            Convert.ToInt16(dr[0]),         //id
+                            dr[2].ToString(),               //news
+                            dr[3].ToString(),               //testo
+                            "",                             //allegato
+                            Convert.ToDateTime(dr[5]),      //data pubblicazione
+                            Convert.ToDateTime(dr[6])      // data fine pubblicazione     
                         ));
                 }
                 d.Close();
                 return news;
+            }
+
+
+            private List<string> _getLettereServizi(int news_id)
+            {
+                List<string> lettere = new List<string>();
+                DBConn d = new DBConn();
+                string q = "SELECT servizi.sigla_servizio " +
+                            "from servizi " +
+                            "inner join news_servizi on servizi.id_servizio = news_servizi.id_servizio " +
+                            "inner join news on news_servizi.id_news = news.id_news " +
+                            "where news.id_news = " + news_id;
+
+                MySqlCommand cmd = new MySqlCommand(q, d.conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                    lettere.Add(dr.GetString(0));
+                dr.Close();
+
+                d.Close();
+
+                return lettere;
             }
 
 

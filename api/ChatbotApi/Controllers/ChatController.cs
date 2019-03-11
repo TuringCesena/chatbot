@@ -190,7 +190,7 @@ namespace ChatbotApi.Controllers
             catch
             {
                 status = false;
-                resp = new Risposta("Errore di connessione", status);
+                resp = new Risposta("Servizio non disponibile", status);
                 res_string = JsonConvert.SerializeObject(resp);
                 return res_string;
             }

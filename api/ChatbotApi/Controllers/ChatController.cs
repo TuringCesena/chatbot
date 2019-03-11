@@ -75,6 +75,13 @@ namespace ChatbotApi.Controllers
             content cont = new content(text);
             this.content.Add(cont);
         }
+
+        public Risposta(string text, string subtext, bool status = true)
+        {
+            this.status = status;
+            content cont = new content(text, subtext);
+            this.content.Add(cont);
+        }
     }
 
 
@@ -119,10 +126,11 @@ namespace ChatbotApi.Controllers
                 string responseString = await response.Content.ReadAsStringAsync();
                 JObject obj = JObject.Parse(responseString);
                 dialog_res = obj["result"]["fulfillment"]["speech"].ToString();
+                string diag_int = obj["result"]["metadata"]["intentName"].ToString();
 
                 //ret = new Response(dialog_res);
                 status = true;
-                resp = new Risposta(dialog_res, status);
+                resp = new Risposta(dialog_res, diag_int, status);
                 res_string = JsonConvert.SerializeObject(resp);
                 return res_string;
 

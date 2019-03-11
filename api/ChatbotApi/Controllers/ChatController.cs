@@ -104,6 +104,7 @@ namespace ChatbotApi.Controllers
             var response= new HttpResponseMessage();
             Risposta resp;
             string res_string;
+            content cont;
             // creazione request
             HttpClient req = new HttpClient();
             var values = new Dictionary<string, string>
@@ -130,52 +131,71 @@ namespace ChatbotApi.Controllers
 
                 //ret = new Response(dialog_res);
                 status = true;
-                resp = new Risposta(dialog_res, diag_int, status);
-                res_string = JsonConvert.SerializeObject(resp);
-                return res_string;
 
-                /*
+                List<content> conts = new List<Controllers.content>();
                 switch (dialog_res)
                 {
                     case "news":
-                        NewsController news = new NewsController();
+                        News n = new News();
                         if (request.user == "")
                         {
-                            JsonResult novita = news.Get();
-                            List<NewsController.News> var    =  novita.Data();
-                            foreach (object  nov in novita)
+                            foreach (News t in n.select())
                             {
-
+                                cont = new content(t.testo, t.news);
+                                conts.Add(cont);
                             }
                         }
                         else
                         {
-                            JsonResult novita = news.Get(request.user);
+                            foreach (News t in n.selectusernews(request.user))
+                            {
+                                cont = new content(t.testo, t.news);
+                                conts.Add(cont);
+                            }
                         }
+                        resp = new Risposta(conts, status);
+                        res_string = JsonConvert.SerializeObject(resp);
+                        return res_string;
                         break;
                     case "services":
-                        ServiziController serv = new ServiziController();
+                        Servizio s = new Servizio();
                         if (request.user == "")
-                            ret = new Response(serv.Get(), "novità");
+                        {
+                            foreach (Servizio t in s.select())
+                            {
+                                cont = new content(t.descrizione);
+                                conts.Add(cont);
+                            }
+                        }
                         else
-                            ret = new Response(serv.GetServiziUser(request.user), "novità");
+                        {
+                            foreach (Servizio t in s.selectServiziUtente(request.user))
+                            {
+                                cont = new content(t.descrizione);
+                                conts.Add(cont);
+                            }
+                        }
+                        resp = new Risposta(conts, status);
+                        res_string = JsonConvert.SerializeObject(resp);
+                        return res_string;
                         break;
                     default:
                         resp = new Risposta(dialog_res, status);
-                        string res_string = JsonConvert.SerializeObject(resp);
+                        res_string = JsonConvert.SerializeObject(resp);
                         return res_string;
                         break;
-                }*/
-                
+                }
+
             }
             catch
             {
                 status = false;
+                resp = new Risposta("Errore di connessione", status);
+                res_string = JsonConvert.SerializeObject(resp);
+                return res_string;
             }
 
-            resp = new Risposta("", status);
-            res_string = JsonConvert.SerializeObject(resp);
-            return res_string;
+            
         }
 
     }

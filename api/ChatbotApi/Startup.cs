@@ -60,8 +60,12 @@ namespace ChatbotApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("AllowAll");
-            
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

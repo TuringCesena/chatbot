@@ -127,7 +127,7 @@ namespace ChatbotApi.Controllers
                 string responseString = await response.Content.ReadAsStringAsync();
                 JObject obj = JObject.Parse(responseString);
                 dialog_res = obj["result"]["fulfillment"]["speech"].ToString();
-                string diag_int = obj["result"]["metadata"]["intentName"].ToString();
+                //string diag_int = obj["result"]["metadata"]["intentName"].ToString();
 
                 //ret = new Response(dialog_res);
                 status = true;

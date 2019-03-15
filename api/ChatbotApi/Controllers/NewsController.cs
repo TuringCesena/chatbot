@@ -17,19 +17,24 @@ namespace ChatbotApi.Controllers
     public class News
     {
         public int ID { get; set; }
-        public DateTime data_pubblicazione { get; set; }
-        public DateTime data_fine_pubblicazione { get; set; }
+        public string servizio { get; set; }
         public string news { get; set; }
         public string testo { get; set; }
+        public string allegato { get; set; }
+        public DateTime data_pubblicazione { get; set; }
+        public DateTime data_fine_pubblicazione { get; set; }
 
-        public News(int id, DateTime dp, DateTime fp, string n, string t)
+        public News(int id, string servizio, string news, string testo, string allegato, DateTime data_pubblicazione, DateTime data_fine_pubblicazione)
         {
-            this.ID = id;
-            this.data_pubblicazione = dp;
-            this.data_fine_pubblicazione = fp;
-            this.news = n;
-            this.testo = t;
+            ID = id;
+            this.servizio = servizio;
+            this.news = news;
+            this.testo = testo;
+            this.allegato = allegato;
+            this.data_pubblicazione = data_pubblicazione;
+            this.data_fine_pubblicazione = data_fine_pubblicazione;
         }
+
 
         public News() { }
 
@@ -49,10 +54,12 @@ namespace ChatbotApi.Controllers
             {
                 news.Add(new News(
                         Convert.ToInt16(dr[0]),
-                        Convert.ToDateTime(dr[1]),
-                        Convert.ToDateTime(dr[2]),
-                        dr[3].ToString(),
-                        dr[4].ToString()
+                        Convert.ToString(dr[1]),
+                        Convert.ToString(dr[2]),
+                        Convert.ToString(dr[3]),
+                        Convert.ToString(dr[4]),
+                        Convert.ToDateTime(dr[5]),
+                        Convert.ToDateTime(dr[6])
                     ));
             }
             d.Close();
@@ -82,10 +89,12 @@ namespace ChatbotApi.Controllers
             {
                 news.Add(new News(
                         Convert.ToInt16(dr[0]),
+                        Convert.ToString(dr[1]),
+                        Convert.ToString(dr[2]),
+                        Convert.ToString(dr[3]),
+                        Convert.ToString(dr[4]),
                         Convert.ToDateTime(dr[1]),
-                        Convert.ToDateTime(dr[2]),
-                        dr[3].ToString(),
-                        dr[4].ToString()
+                        Convert.ToDateTime(dr[2])
                     ));
             }
             d.Close();

@@ -15,7 +15,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ChatbotApi.Controllers.ServiziController.Servizio.select(System.Int32)">
+        <member name="M:ChatbotApi.Controllers.Servizio.select(System.Int32)">
             <summary>
             restituisce la lista di oggetti
             </summary>
